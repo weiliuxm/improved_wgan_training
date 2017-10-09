@@ -11,7 +11,8 @@ def make_generator(path, n_files, batch_size):
         random_state.shuffle(files)
         epoch_count[0] += 1
         for n, i in enumerate(files):
-            image = scipy.misc.imread("{}/{}.png".format(path, str(i+1).zfill(len(str(n_files)))))
+            # print "{}/{}.jpg".format(path, str(i + 1).zfill(len(str(n_files))))
+            image = scipy.misc.imread("{}/{}.jpg".format(path, str(i+1).zfill(len(str(n_files)))))
             images[n % batch_size] = image.transpose(2,0,1)
             if n > 0 and n % batch_size == 0:
                 yield (images,)
@@ -19,8 +20,9 @@ def make_generator(path, n_files, batch_size):
 
 def load(batch_size, data_dir='/home/ishaan/data/imagenet64'):
     return (
-        make_generator(data_dir+'/train_64x64', 1281149, batch_size),
-        make_generator(data_dir+'/valid_64x64', 49999, batch_size)
+        # make_generator(data_dir+'/train_64x64', 1281149, batch_size),
+        make_generator(data_dir + '/bicycle_resized', 2284, batch_size),
+        make_generator(data_dir+'/bicycle_resized', 2284, batch_size)
     )
 
 if __name__ == '__main__':
